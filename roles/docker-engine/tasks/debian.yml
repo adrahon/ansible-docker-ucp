@@ -10,18 +10,8 @@
 - name: "Install Docker apt repo"
   become: yes
   apt_repository: 
-    repo: "deb https://packages.docker.com/1.10/apt/repo ubuntu-trusty main"
-        # You must modify the “ubuntu-trusty” string for your flavor of ubuntu
-        # or debian as seen in the following options.
-        #
-        # debian-jessie (Debian 8)
-        # debian-stretch (future release)
-        # debian-wheezy (Debian 7)
-        # ubuntu-precise (Ubuntu 12.04)
-        # ubuntu-trusty (Ubuntu 14.04)
-        # ubuntu-utopic (Ubuntu 14.10)
-        # ubuntu-vivid (Ubuntu 15.04)
-        # ubuntu-wily (Ubuntu 15.10)
+    # select the repo based on distro and release codename: ubuntu-trusty, # debian-jessie, etc.
+    repo: "deb https://packages.docker.com/1.10/apt/repo {{ ansible_distribution | lower }}-{{ansible_distribution_release}} main"
     update_cache: yes
     state: present
 
