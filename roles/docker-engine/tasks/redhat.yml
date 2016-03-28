@@ -6,15 +6,18 @@
     key: "https://sks-keyservers.net/pks/lookup?op=get&search=0xee6d536cf7dc86e2d7d56f59a178ac6c6238f52e"
     state: present
 
-# install yum utils and Docker repo
-- name: "Install yum utils"
+- name: "Install libselinux-python to allow file copy"
   become: yes
   yum:
-    name: yum-utils
-    state: installed
-- name: "Install Docker yum repo"
-  become: yes
-  command: "yum-config-manager --add-repo https://packages.docker.com/1.10/yum/repo/main/centos/7"
+    name: libselinux-python
+    state: present
+
+- name: "Add Docker yum repo"
+  copy:
+    src: "docker.repo"
+    dest: /etc/yum.repos.d
+    owner: root
+    group: root
 
 - name: "Install Docker package"
   become: yes
