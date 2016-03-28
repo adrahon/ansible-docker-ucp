@@ -14,7 +14,7 @@
     state: installed
 - name: "Install Docker yum repo"
   become: yes
-  command: "become yum-config-manager --add-repo https://packages.docker.com/1.10/yum/repo/main/centos/7"
+  command: "yum-config-manager --add-repo https://packages.docker.com/1.10/yum/repo/main/centos/7"
 
 - name: "Install Docker package"
   become: yes
