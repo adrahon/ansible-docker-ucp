@@ -1,5 +1,13 @@
 ---
 
+# Configure devicemapper if EL < 7.2
+- include: lvm-dm.yml
+  when: ansible_distribution_version < "7.2"
+
+# Update Python to avoid TLS errors EL < 7.2
+- include: fix-tls.yml
+  when: ansible_distribution_version < "7.2"
+
 - name: "Install Docker rpm key"
   become: yes
   rpm_key: 

@@ -1,0 +1,8 @@
+---
+
+# Update Python to handle TLS correctly
+- name: "Update Python"
+  become: yes
+  yum:
+    name: python
+    state: latest

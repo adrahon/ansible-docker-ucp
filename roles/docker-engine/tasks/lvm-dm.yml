@@ -1,0 +1,14 @@
+---
+
+- name: "Install LVM2"
+  become: yes
+  yum:
+    name: lvm2
+    state: present
+
+- name: "Test if physical volume is present"
+  become: yes
+  shell: "pvdisplay {{ dm_device }}"
+  ignore_errors: true
+  register: pv_exist
+
