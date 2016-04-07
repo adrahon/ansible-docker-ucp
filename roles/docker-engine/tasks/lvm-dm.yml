@@ -12,3 +12,12 @@
     vg: docker
     pvs: "{{ dm_device }}"
     state: present
+
+- name: "devicemapper: Create logical volume"
+  become: yes
+  lvol:
+    lv: thinpool
+    vg: docker
+    size: 85%VG
+    opts: "--thin"
+    state: present
