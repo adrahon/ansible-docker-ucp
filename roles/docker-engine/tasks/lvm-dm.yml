@@ -18,6 +18,18 @@
   lvol:
     lv: thinpool
     vg: docker
-    size: 85%VG
+    size: 95%VG
     opts: "--thin"
     state: present
+
+- name: "devicemapper: Add LVM Profile"
+  copy:
+    src: "docker-thinpool.profile"
+    dest: /etc/lvm/profile
+    owner: root
+    group: root
+
+- name: "devicemapper: Apply LVM Profile"
+  become: yes
+  command: lvchange --metadataprofile docker-thinpool docker/thinpool
+
