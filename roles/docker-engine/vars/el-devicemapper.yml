@@ -1,4 +1,5 @@
 ---
 
+dm_device: "/dev/vdb"
 storage_driver: "devicemapper"
 storage_opts: "dm.thinpooldev=/dev/mapper/docker-thinpool"
