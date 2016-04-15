@@ -1,5 +1,12 @@
 ---
 
+- name: "Configure Docker engine"
+  template: 
+    src: daemon.json.j2
+    dest: /etc/daemon.json
+    owner: root
+    group: root
+
 # Configure devicemapper if EL < 7.2
 - include: lvm-dm.yml
   when: ansible_distribution_version < "7.2"
@@ -34,8 +41,13 @@
     update_cache: yes
     state: installed
 
-## Storage?
-    
+- name: "Configure Docker engine"
+  template: 
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+
 # # enable
 # # become systemctl enable docker.service
 # # become systemctl start docker.service

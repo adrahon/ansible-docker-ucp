@@ -1,5 +1,13 @@
 ---
 
+# Load vars and tasks based on distro
+
+- include_vars: "../vars/el-devicemapper.yml"
+  when: (ansible_os_family == 'RedHat' and ansible_distribution_version < "7.2")
+
+- include_vars: "../vars/el-overlayfs.yml"
+  when: (ansible_os_family == 'RedHat' and ansible_distribution_version >= "7.2")
+
 - include: debian.yml
   when: ansible_os_family == 'Debian'
 
