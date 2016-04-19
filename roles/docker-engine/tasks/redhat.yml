@@ -46,7 +46,3 @@
     owner: root
     group: root
 
-# # enable
-# # become systemctl enable docker.service
-# # become systemctl start docker.service
-# ~                                            
