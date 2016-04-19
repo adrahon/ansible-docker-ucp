@@ -34,6 +34,11 @@
     update_cache: yes
     state: installed
 
+- name: "Ensure /etc/docker dir exists"
+  file:
+    path: /etc/docker
+    state: directory
+
 - name: "Configure Docker engine"
   template: 
     src: daemon.json.j2
