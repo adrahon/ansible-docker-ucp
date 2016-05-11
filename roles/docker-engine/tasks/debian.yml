@@ -11,7 +11,7 @@
   become: yes
   apt_repository: 
     # select the repo based on distro and release codename: ubuntu-trusty, # debian-jessie, etc.
-    repo: "deb https://packages.docker.com/1.10/apt/repo {{ ansible_distribution | lower }}-{{ansible_distribution_release}} main"
+    repo: "deb https://packages.docker.com/1.11/apt/repo {{ ansible_distribution | lower }}-{{ansible_distribution_release}} main"
     update_cache: yes
     state: present
 

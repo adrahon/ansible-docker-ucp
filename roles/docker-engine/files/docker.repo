@@ -1,6 +1,6 @@
 [Docker]
 name=Official Docker Repository
-baseurl=https://packages.docker.com/1.10/yum/repo/main/centos/7
+baseurl=https://packages.docker.com/1.11/yum/repo/main/centos/7
 enabled=1
 gpgcheck=1
 
