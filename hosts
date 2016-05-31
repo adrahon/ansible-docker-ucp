@@ -1,0 +1,14 @@
+# This is an example ansible 'hosts' file.
+[all:vars]
+ansible_user=root 
+
+[haproxy]
+#haproxy.example.com
+
+[docker]
+#ubuntu-ucp.example.com ansible_user=demo
+#ucp1.example.com
+#ucp2.example.com
+#ucp3.example.com
+#node1.example.com
+dktest.example.com
