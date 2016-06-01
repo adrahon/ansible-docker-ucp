@@ -1,5 +1,8 @@
 ---
 
+- set_fact:
+    storage_driver: "aufs"
+
 - name: "Install Docker apt key"
   become: yes
   apt_key:

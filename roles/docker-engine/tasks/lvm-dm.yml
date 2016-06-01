@@ -1,5 +1,11 @@
 ---
 
+# Include devicemapper parameters
+- include_vars: "../vars/el-devicemapper.yml"
+
+- set_fact:
+    storage_driver: "devicemapper"
+
 - name: "devicemapper: Install LVM2"
   become: yes
   yum:

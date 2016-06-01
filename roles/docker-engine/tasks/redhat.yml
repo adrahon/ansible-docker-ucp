@@ -1,8 +1,8 @@
 ---
 
-# Configure devicemapper if EL < 7.2
+# Configure devicemapper if EL < 7.2 or overlay not defined
 - include: lvm-dm.yml
-  when: ansible_distribution_version < "7.2"
+  when: ansible_distribution_version < "7.2" or storage_driver != "overlay"
 
 # Update Python to avoid TLS errors EL < 7.2
 - include: fix-tls.yml
