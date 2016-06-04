@@ -11,6 +11,9 @@ ucp_fqdn=ucp.example.com
 [docker]
 #ubuntu-ucp.example.com ansible_user=demo
 #node1.example.com
+ucp1.example.com
+ucp2.example.com
+ucp3.example.com
 
 [ucp-primary]
 ucp1.example.com

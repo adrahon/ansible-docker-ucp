@@ -5,11 +5,9 @@
 
 - hosts: ucp-primary
   roles:
-    - docker-engine
     - docker-ucp-primary
 
 - hosts: ucp-replica
   serial: 1 # need to join one by one only
   roles:
-    - docker-engine
     - docker-ucp-replica
