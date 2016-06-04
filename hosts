@@ -3,22 +3,18 @@
 ansible_user=root 
 storage_driver=overlay
 ucp_admin_password=ddcpassword
-ucp_fqdn=dktest.example.com
+ucp_fqdn=ucp.example.com
 
 [haproxy]
 #haproxy.example.com
 
 [docker]
 #ubuntu-ucp.example.com ansible_user=demo
-#ucp1.example.com
-#ucp2.example.com
-#ucp3.example.com
 #node1.example.com
 
 [ucp-primary]
-dktest.example.com
+ucp1.example.com
 
 [ucp-replica]
-dktest2.example.com
-dktest3.example.com
-
+ucp2.example.com
+ucp3.example.com
