@@ -22,3 +22,11 @@
 
 - name: "Join replica to cluster"
   command: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e UCP_ADMIN_USER=admin -e UCP_ADMIN_PASSWORD={{ ucp_admin_password }} --name ucp docker/ucp join --replica --url https://{{ ucp_fqdn }} --san {{ ansible_fqdn }} --san {{ ucp_fqdn }} --fingerprint {{ ucp_fingerprint.stdout }}
+
+- name: "Restart docker engine"
+  become: yes
+  service:
+    name: docker
+    state: restarted
+
+
