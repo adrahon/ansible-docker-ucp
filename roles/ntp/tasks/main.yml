@@ -1,0 +1,27 @@
+---
+
+- name: "Install NTP package on EL"
+  yum: 
+    name: ntp
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: "Install NTP package on Debian/Ubuntu"
+  apt:
+    name: ntp
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: "Check if clock is synchronised"
+  shell: "ntpstat"
+  register: status
+  
+  # Force clock sync if it is not
+- include: sync-clock.yml
+  when: status.rc != 0
+
+- name: "Ensure ntp service is started"
+  service:
+    name: ntpd
+    state: started
+    enabled: yes

@@ -5,6 +5,11 @@ storage_driver=overlay
 ucp_admin_password=ddcpassword
 ucp_fqdn=ucp.example.com
 
+[ntp]
+ucp1.example.com
+ucp2.example.com
+ucp3.example.com
+
 [haproxy]
 #haproxy.example.com
 

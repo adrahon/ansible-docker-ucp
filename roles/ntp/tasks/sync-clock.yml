@@ -1,0 +1,10 @@
+---
+
+- name: "Ensure ntp service is stopped"
+  service:
+    name: ntpd
+    state: stopped
+
+- name: "Set clock to right time"
+  shell: "ntpdate pool.ntp.org"
+

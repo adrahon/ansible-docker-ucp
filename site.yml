@@ -1,4 +1,9 @@
 ---
+
+- hosts: ntp
+  roles:
+    - ntp
+
 - hosts: docker
   roles:
     - docker-engine
