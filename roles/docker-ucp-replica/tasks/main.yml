@@ -1,0 +1,24 @@
+---
+
+- name: "Wait for UCP controller to come up"
+  uri:
+    url: "https://{{ ucp_fqdn }}/_ping"
+    validate_certs: no
+  register: ucp_primary
+  until: ucp_primary.status == 200
+  retries: 50
+  delay: 2
+
+- name: "Download UCP CA"
+  get_url: 
+    url: https://{{ ucp_fqdn }}/ca
+    dest: /tmp/ca.pem
+    force: yes
+    validate_certs: no
+
+- name: "Get UCP Fingerprint"
+  shell: openssl x509 -in /tmp/ca.pem -noout -sha256 -fingerprint | awk -F= '{ print $2 }'
+  register: ucp_fingerprint
+
+- name: "Join replica to cluster"
+  command: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e UCP_ADMIN_USER=admin -e UCP_ADMIN_PASSWORD={{ ucp_admin_password }} --name ucp docker/ucp join --replica --url https://{{ ucp_fqdn }} --san {{ ansible_fqdn }} --san {{ ucp_fqdn }} --fingerprint {{ ucp_fingerprint.stdout }}
