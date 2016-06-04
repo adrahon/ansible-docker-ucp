@@ -8,5 +8,5 @@
   ignore_errors: yes
 
 - include: ucp-primary.yml
-  when: status.stdout != "200"
+  when: ucp_primary.status != 200
 
