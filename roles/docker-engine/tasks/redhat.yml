@@ -1,5 +1,9 @@
 ---
 
+- set_fact:
+    storage_driver: devicemapper
+  when: storage_driver is not defined
+
 # Configure devicemapper if EL < 7.2 or overlay not defined
 - include: lvm-dm.yml
   when: ansible_distribution_version < "7.2" or storage_driver != "overlay"
