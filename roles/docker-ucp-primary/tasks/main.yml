@@ -1,8 +1,11 @@
 ---
 
 - name: "Test if UCP primary controller already exists"
-  shell: "curl --insecure --silent --output /dev/null --write-out '%{http_code}' https://{{ ucp_fqdn }}/_ping"
-  register: status
+  uri:
+    url: "https://{{ ucp_fqdn }}/_ping"
+    validate_certs: no
+  register: ucp_primary
+  ignore_errors: yes
 
 - include: ucp-primary.yml
   when: status.stdout != "200"
