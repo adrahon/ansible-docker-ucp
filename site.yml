@@ -2,3 +2,8 @@
 - hosts: docker
   roles:
     - docker-engine
+
+- hosts: ucp-primary
+  roles:
+    - docker-engine
+    - docker-ucp-primary

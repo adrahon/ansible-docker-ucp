@@ -1,6 +1,9 @@
 # This is an example ansible 'hosts' file.
 [all:vars]
 ansible_user=root 
+storage_driver=overlay
+ucp_admin_password=ddcpassword
+ucp_fqdn=dktest.example.com
 
 [haproxy]
 #haproxy.example.com
@@ -11,4 +14,8 @@ ansible_user=root
 #ucp2.example.com
 #ucp3.example.com
 #node1.example.com
+
+[ucp-primary]
 dktest.example.com
+
+
