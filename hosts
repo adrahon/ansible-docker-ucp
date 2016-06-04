@@ -4,6 +4,7 @@ ansible_user=root
 storage_driver=overlay
 ucp_admin_password=ddcpassword
 ucp_fqdn=ucp.example.com
+ca_backup_pass=secret
 
 [ntp]
 ucp1.example.com

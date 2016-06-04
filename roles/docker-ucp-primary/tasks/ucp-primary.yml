@@ -8,6 +8,19 @@
 - name: "Install primary UCP controller"
   command: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/docker_subscription.lic:/docker_subscription.lic -e UCP_ADMIN_PASSWORD={{ ucp_admin_password }} --name ucp docker/ucp:1.1.1 install --host-address {{ ansible_default_ipv4['address'] }} --san {{ ansible_fqdn }} --san {{ ucp_fqdn }}
 
+- name: "Get UCP ID"
+  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:1.1.1 id
+  register: id
+
+- name: "Backup CA"
+  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:1.1.1 backup --id {{ id.stdout }} --root-ca-only --passphrase {{ ca_backup_pass }} > /tmp/ca_backup.tar
+
+- name: "Copy CA backup"
+  fetch: 
+    src: /tmp/ca_backup.tar
+    dest: /tmp/
+    flat: yes
+
 - name: "Restart docker engine"
   become: yes
   service:

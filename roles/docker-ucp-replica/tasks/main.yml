@@ -23,6 +23,18 @@
 - name: "Join replica to cluster"
   command: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e UCP_ADMIN_USER=admin -e UCP_ADMIN_PASSWORD={{ ucp_admin_password }} --name ucp docker/ucp join --replica --url https://{{ ucp_fqdn }} --san {{ ansible_fqdn }} --san {{ ucp_fqdn }} --fingerprint {{ ucp_fingerprint.stdout }}
 
+- name: "Upload CA backup"
+  copy:
+    src: /tmp/ca_backup.tar
+    dest: /tmp/
+
+- name: "Get UCP ID"
+  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:1.1.1 id
+  register: id
+
+- name: "Restore CA"
+  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:1.1.1 restore --id {{ id.stdout }} --root-ca-only --passphrase {{ ca_backup_pass }} < /tmp/ca_backup.tar
+
 - name: "Restart docker engine"
   become: yes
   service:
