@@ -15,6 +15,7 @@
 - name: "Check if clock is synchronised"
   shell: "ntpstat"
   register: status
+  ignore_errors: yes # command will fail if service not running
   
   # Force clock sync if it is not
 - include: sync-clock.yml
