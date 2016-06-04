@@ -1,12 +1,9 @@
 ---
 
-- name: "Test if UCP controller is up"
-  uri:
-    url: "https://{{ ucp_fqdn }}/_ping"
-    validate_certs: no
-  register: ucp_primary
-  ignore_errors: yes
+- name: "Test if UCP primary controller already exists"
+  shell: "curl --insecure --silent --output /dev/null --write-out '%{http_code}' https://{{ ucp_fqdn }}/_ping"
+  register: status
 
 - include: ucp-primary.yml
-  when: ucp_primary.status != 200
+  when: status.stdout != "200"
 
