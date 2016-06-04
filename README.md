@@ -1,4 +1,4 @@
-# ansible-docker-cs-ucp
+# ansible-docker-ucp
 
 Ansible playbook to deploy Docker CS Engine and UCP
 
