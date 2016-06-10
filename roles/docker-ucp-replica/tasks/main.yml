@@ -1,5 +1,7 @@
 ---
 
+- include: ucp-iptables.yml
+
 - name: "Wait for UCP controller to come up"
   uri:
     url: "https://{{ ucp_fqdn }}/_ping"

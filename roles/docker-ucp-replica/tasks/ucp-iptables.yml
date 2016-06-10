@@ -1,0 +1,15 @@
+---
+
+# Open required ports
+ 
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 443 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 2375 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 2376 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p udp --dport 4789 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 7946 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p udp --dport 7946 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 12376 -j ACCEPT
+- command: /sbin/iptables -I INPUT 1 -p tcp --dport 12379:12386 -j ACCEPT
+
+- name: "Save iptables rules"
+  shell: iptables-save /root/iptables.rules

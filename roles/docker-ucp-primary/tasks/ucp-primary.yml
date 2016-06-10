@@ -1,5 +1,7 @@
 ---
 
+- include: ucp-iptables.yml
+
 - name: "Add license file"
   copy:
     src: "docker_subscription.lic"
