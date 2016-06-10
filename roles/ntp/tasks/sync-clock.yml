@@ -4,6 +4,13 @@
   service:
     name: ntpd
     state: stopped
+  when: ansible_os_family == 'RedHat'
+
+- name: "Ensure ntp service is stopped"
+  service:
+    name: ntp
+    state: stopped
+  when: ansible_os_family == 'Debian'
 
 - name: "Set clock to right time"
   shell: "ntpdate pool.ntp.org"
