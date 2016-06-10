@@ -8,7 +8,6 @@
   when: ansible_os_family == 'RedHat'
 
 - name: "Ensure docker engine is started" 
-  become: yes
   service:
     name: docker
     state: started

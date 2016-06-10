@@ -7,20 +7,17 @@
     storage_driver: "devicemapper"
 
 - name: "devicemapper: Install LVM2"
-  become: yes
   yum:
     name: lvm2
     state: present
 
 - name: "devicemapper: Create volume group"
-  become: yes
   lvg:
     vg: docker
     pvs: "{{ dm_device }}"
     state: present
 
 - name: "devicemapper: Create logical volume"
-  become: yes
   lvol:
     lv: thinpool
     vg: docker
@@ -36,6 +33,5 @@
     group: root
 
 - name: "devicemapper: Apply LVM Profile"
-  become: yes
   command: lvchange --metadataprofile docker-thinpool docker/thinpool
 

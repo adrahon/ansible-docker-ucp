@@ -4,14 +4,12 @@
     storage_driver: "aufs"
 
 - name: "Install Docker apt key"
-  become: yes
   apt_key:
     keyserver: "hkp://pool.sks-keyservers.net"
     id: "ee6d536cf7dc86e2d7d56f59a178ac6c6238f52e"
     state: present
 
 - name: "Install Docker apt repo"
-  become: yes
   apt_repository: 
     # select the repo based on distro and release codename: ubuntu-trusty, # debian-jessie, etc.
     repo: "deb https://packages.docker.com/1.11/apt/repo {{ ansible_distribution | lower }}-{{ansible_distribution_release}} main"
@@ -19,7 +17,6 @@
     state: present
 
 - name: "Install Docker package"
-  become: yes
   apt:
     name: docker-engine
     update_cache: yes
