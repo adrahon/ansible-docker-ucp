@@ -26,3 +26,12 @@
     name: ntpd
     state: started
     enabled: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: "Ensure ntp service is started"
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+  when: ansible_os_family == 'Debian'
+
