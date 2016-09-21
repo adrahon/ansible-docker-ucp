@@ -1,11 +1,8 @@
 ---
 
-- hosts: ntp
+- hosts: all
   roles:
     - ntp
-
-- hosts: docker
-  roles:
     - docker-engine
 
 - hosts: ucp-primary

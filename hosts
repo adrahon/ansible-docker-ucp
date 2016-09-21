@@ -1,29 +1,27 @@
 # This is an example ansible 'hosts' file.
 [all:vars]
 ansible_user=root 
+#ansible_become=yes
+#ansible_become_pass=password
+
 storage_driver=overlay
 ucp_admin_password=ddcpassword
 ucp_fqdn=ucp.example.com
 ca_backup_pass=secret
+#ucp_version=1.0.4
 
-[ntp]
+[all]
 ucp1.example.com
 ucp2.example.com
 ucp3.example.com
+#node1.example.com
 
 [haproxy]
 #haproxy.example.com
 
-[docker]
-#ubuntu-ucp.example.com ansible_user=demo
-#node1.example.com
-ucp1.example.com
-ucp2.example.com
-ucp3.example.com
-
 [ucp-primary]
-ucp1.example.com
+#ucp1.example.com
 
 [ucp-replica]
-ucp2.example.com
-ucp3.example.com
+#ucp2.example.com
+#ucp3.example.com
