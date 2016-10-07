@@ -1,27 +1,31 @@
 # This is an example ansible 'hosts' file.
+
 [all:vars]
-ansible_user=root 
+
+# for local VMs
+#ansible_user=root 
 #ansible_become=yes
 #ansible_become_pass=password
 
-storage_driver=overlay
-ucp_admin_password=ddcpassword
-ucp_fqdn=ucp.example.com
-ca_backup_pass=secret
-#ucp_version=1.0.4
+# for AWS
+ansible_user=centos 
+ansible_become=yes
+ansible_ssh_private_key_file=/home/user/.ssh/aws.pem
 
-[all]
-ucp1.example.com
-ucp2.example.com
-ucp3.example.com
-#node1.example.com
+# Misc options 
+storage_driver=overlay # to change from default graph storage driver
+ucp_admin_password=ddcpassword # password for ucp admin
+ucp_fqdn=ucp.example.com # fqdn for LB
+ucp_version=2.0.0-beta0.5 # to change from default version
 
-[haproxy]
-#haproxy.example.com
+ddc_images=ucp_images_2.0.0-beta0.5.tar.gz # to preload images on nodes
 
 [ucp-primary]
-#ucp1.example.com
+ec2-XX-XX-XXX-1.eu-central-1.compute.amazonaws.com
 
 [ucp-replica]
-#ucp2.example.com
-#ucp3.example.com
+ec2-XX-XX-XXX-2.eu-central-1.compute.amazonaws.com
+ec2-XX-XX-XXX-3.eu-central-1.compute.amazonaws.com
+
+[ucp-worker]
+ec2-XX-XX-XXX-4.eu-central-1.compute.amazonaws.com
