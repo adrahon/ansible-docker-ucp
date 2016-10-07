@@ -2,6 +2,16 @@
 
 - include: ucp-iptables.yml
 
+- name: "Copy images to host"
+  copy:
+    src: "{{ ddc_images }}"
+    dest: /tmp
+  when: ddc_images is defined
+
+- name: "Load images in Docker engine"
+  command: docker load -i /tmp/{{ ddc_images }}
+  when: ddc_images is defined
+
 - name: "Add license file"
   copy:
     src: "docker_subscription.lic"
