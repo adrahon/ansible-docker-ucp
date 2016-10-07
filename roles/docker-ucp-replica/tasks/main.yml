@@ -14,42 +14,13 @@
 
 - name: "Wait for UCP controller to come up"
   uri:
-    url: "https://{{ ucp_fqdn }}/_ping"
+    url: "https://{{ hostvars[groups['ucp-primary'][0]]['ansible_eth0']['ipv4']['address'] }}/_ping"
     validate_certs: no
   register: ucp_primary
   until: ucp_primary.status == 200
   retries: 50
   delay: 2
 
-- name: "Download UCP CA"
-  get_url: 
-    url: https://{{ ucp_fqdn }}/ca
-    dest: /tmp/ca.pem
-    force: yes
-    validate_certs: no
-
-- name: "Get UCP Fingerprint"
-  shell: openssl x509 -in /tmp/ca.pem -noout -sha256 -fingerprint | awk -F= '{ print $2 }'
-  register: ucp_fingerprint
-
 - name: "Join replica to cluster"
-  command: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e UCP_ADMIN_USER=admin -e UCP_ADMIN_PASSWORD={{ ucp_admin_password }} --name ucp docker/ucp join --replica --url https://{{ ucp_fqdn }} --san {{ ansible_fqdn }} --san {{ ucp_fqdn }} --fingerprint {{ ucp_fingerprint.stdout }}
-
-- name: "Upload CA backup"
-  copy:
-    src: /tmp/ca_backup.tar
-    dest: /tmp/
-
-- name: "Get UCP ID"
-  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:{{ ucp_version }} id
-  register: id
-
-- name: "Restore CA"
-  shell: docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp:{{ ucp_version }} restore --id {{ id.stdout }} --root-ca-only --passphrase {{ ca_backup_pass }} < /tmp/ca_backup.tar
-
-- name: "Restart docker engine"
-  service:
-    name: docker
-    state: restarted
-
+  command: docker swarm join --token {{ hostvars[groups['ucp-primary'][0]]['master_token'].stdout }} {{ hostvars[groups['ucp-primary'][0]]['ansible_eth0']['ipv4']['address'] }}
 

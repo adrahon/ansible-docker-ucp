@@ -2,11 +2,19 @@
 
 - name: "Test if UCP primary controller already exists"
   uri:
-    url: "https://{{ ucp_fqdn }}/_ping"
+    url: "https://localhost/_ping"
     validate_certs: no
   register: ucp_primary
   ignore_errors: yes
 
 - include: ucp-primary.yml
   when: ucp_primary.status != 200
+
+- name: "Get manager join token"
+  shell: docker swarm join-token -q manager
+  register: master_token
+
+- name: "Get worker join token"
+  shell: docker swarm join-token -q worker
+  register: worker_token
 
