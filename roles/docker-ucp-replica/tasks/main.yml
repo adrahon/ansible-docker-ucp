@@ -2,6 +2,16 @@
 
 - include: ucp-iptables.yml
 
+- name: "Copy images to host"
+  copy:
+    src: "{{ ddc_images }}"
+    dest: /tmp
+  when: ddc_images is defined
+
+- name: "Load images in Docker engine"
+  command: docker load -i /tmp/{{ ddc_images }}
+  when: ddc_images is defined
+
 - name: "Wait for UCP controller to come up"
   uri:
     url: "https://{{ ucp_fqdn }}/_ping"
