@@ -23,9 +23,9 @@
     state: present
 
 - name: "Add Docker yum repo"
-  copy:
-    src: "docker.repo"
-    dest: /etc/yum.repos.d
+  template: 
+    src: docker.repo.j2
+    dest: /etc/yum.repos.d/docker.repo
     owner: root
     group: root
 
