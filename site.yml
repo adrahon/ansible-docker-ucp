@@ -13,3 +13,8 @@
   serial: 1 # need to join one by one only
   roles:
     - docker-ucp-replica
+
+- hosts: ucp-worker
+  serial: 1 # need to join one by one only
+  roles:
+    - docker-ucp-worker

@@ -1,0 +1,16 @@
+---
+
+- include: ucp-iptables.yml
+
+- name: "Wait for UCP controller to come up"
+  uri:
+    url: "https://{{ hostvars[groups['ucp-primary'][0]]['ansible_eth0']['ipv4']['address'] }}/_ping"
+    validate_certs: no
+  register: ucp_primary
+  until: ucp_primary.status == 200
+  retries: 50
+  delay: 2
+
+- name: "Join replica to cluster"
+  command: docker swarm join --token {{ hostvars[groups['ucp-primary'][0]]['worker_token'].stdout }} {{ hostvars[groups['ucp-primary'][0]]['ansible_eth0']['ipv4']['address'] }}
+
