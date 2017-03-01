@@ -4,10 +4,7 @@
     storage_driver: "aufs"
 
 - name: "Install Docker apt key"
-  apt_key:
-    keyserver: "hkp://pool.sks-keyservers.net"
-    id: "ee6d536cf7dc86e2d7d56f59a178ac6c6238f52e"
-    state: present
+  script: aptkey.sh
 
 - name: "Install Docker apt repo"
   apt_repository: 

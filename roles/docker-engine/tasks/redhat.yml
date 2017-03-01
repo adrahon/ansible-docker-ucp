@@ -12,11 +12,6 @@
 - include: fix-tls.yml
   when: ansible_distribution_version < "7.2"
 
-- name: "Install Docker rpm key"
-  rpm_key: 
-    key: "https://sks-keyservers.net/pks/lookup?op=get&search=0xee6d536cf7dc86e2d7d56f59a178ac6c6238f52e"
-    state: present
-
 - name: "Install libselinux-python to allow file copy"
   yum:
     name: libselinux-python
