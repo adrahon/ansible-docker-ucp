@@ -1,7 +1,7 @@
 {
 {% if storage_opts is defined %}
   "storage-driver": "{{ storage_driver }}",
-  "storage-opts": ["{{ storage_opts }}"]
+  "storage-opts": [{{ storage_opts }}]
 {% else  %}
   "storage-driver": "{{ storage_driver }}"
 {% endif %}

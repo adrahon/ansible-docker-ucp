@@ -1,4 +1,4 @@
 ---
 
-dm_device: "/dev/vdb"
-storage_opts: "dm.thinpooldev=/dev/mapper/docker-thinpool"
+dm_device: "/dev/xvdb"
+storage_opts: '"dm.thinpooldev=/dev/mapper/docker-thinpool", "dm.use_deferred_removal=true", "dm.use_deferred_deletion=true", "dm.min_free_space=10%"'
