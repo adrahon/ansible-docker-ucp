@@ -1,2 +1,4 @@
 site.retry
 files/*
+resources/
+add_hosts/
